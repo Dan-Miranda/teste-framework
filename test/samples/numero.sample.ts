@@ -1,7 +1,10 @@
-import { OutputNumeroDivisorDto } from 'src/numeros/dtos/numero.dto';
+import { OutputNumeroDto } from '../../src/numeros/dtos/outputuNumeroDto';
+import { divisorSample } from './divisor.sample';
+import { primoSample } from './primo.sample';
 
-const numeroSample: OutputNumeroDivisorDto = {
-  divisores: [1, 2, 5, 10],
+const numeroSample: OutputNumeroDto = {
+  divisores: divisorSample.divisores,
+  primos: primoSample.primos,
 };
 
 export { numeroSample };
