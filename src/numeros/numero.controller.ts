@@ -1,18 +1,24 @@
 import { Controller, Get, Inject, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { OutputNumeroDivisorDto } from './dtos/numero.dto';
-import { NumeroService } from './services/numero.service';
+import { OutputNumeroDto } from './dtos/outputuNumeroDto';
+import { DivisorService } from './services/divisores/divisor.service';
+import { PrimoService } from './services/primos/primo.service';
 
 @ApiTags('Números')
 @Controller('/numeros')
 export class NumeroController {
   constructor(
-    @Inject('NumeroService')
-    private readonly appService: NumeroService,
+    @Inject('DivisorService')
+    private readonly divisorService: DivisorService,
+    @Inject('PrimoService')
+    private readonly primoService: PrimoService,
   ) {}
 
   @Get('/:numero')
-  calcularDivisores(@Param('numero') numero: number): OutputNumeroDivisorDto {
-    return this.appService.calcularDivisores(numero);
+  mapearDivisoresEPrimos(@Param('numero') numero: number): OutputNumeroDto {
+    const { divisores } = this.divisorService.calcularDivisores(numero);
+    const { primos } = this.primoService.calcularNumerosPrimos(numero);
+    const outputNumeroDto: OutputNumeroDto = { divisores, primos };
+    return outputNumeroDto;
   }
 }
