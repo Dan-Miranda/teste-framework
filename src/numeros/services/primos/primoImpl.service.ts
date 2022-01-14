@@ -17,13 +17,24 @@ class PrimoServiceImpl implements PrimoService {
     const numerosPrimos: Array<number> = [];
 
     for (let i = 1; i < numero; i++) {
-      const isNumeroPrimo = validarRestoZero(numero, i);
+      const isNumeroPrimo = this.validarNumeroPrimo(i);
       if (isNumeroPrimo) {
         numerosPrimos.push(i);
       }
     }
 
     return numerosPrimos;
+  }
+
+  private validarNumeroPrimo(numero: number) {
+    if (numero !== 1) {
+      for (let i = 2; i < numero; i++) {
+        if (validarRestoZero(numero, i)) {
+          return false;
+        }
+      }
+      return numero !== 1;
+    }
   }
 }
 
